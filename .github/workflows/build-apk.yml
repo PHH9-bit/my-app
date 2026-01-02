@@ -16,25 +16,33 @@ jobs:
         node-version: 18
         
     - name: Install dependencies
-      run: npm ci
+      run: |
+        npm install
+        echo "Dependencies installed successfully"
+      
+    - name: Setup Java 21 (Required for Android SDK)
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
       
     - name: Prebuild (Expo)
-      run: npx expo prebuild --platform android --clean
+      run: |
+        npx expo prebuild --platform android --clean
+        echo "Prebuild completed"
       
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: '11'
-        
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
       
-    - name: Accept Android Licenses
+    - name: Accept Android Licenses (with JDK 21)
       run: |
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
-        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || echo "Licenses accepted"
+        
+    - name: Install Android Build Tools
+      run: |
+        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34" --verbose
         
     - name: Build APK
       run: |
