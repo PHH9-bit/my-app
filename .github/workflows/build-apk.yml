@@ -1,4 +1,4 @@
-name: Reza Saman.ins
+name: Build Android APK
 
 on: [push]
 
@@ -19,7 +19,7 @@ jobs:
       run: npm ci
       
     - name: Prebuild (Expo)
-      run: npx expo prebuild --platform android
+      run: npx expo prebuild --platform android --clean
       
     - name: Setup Java
       uses: actions/setup-java@v3
@@ -30,6 +30,12 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
       
+    - name: Accept Android Licenses
+      run: |
+        mkdir -p ~/.android
+        touch ~/.android/repositories.cfg
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+        
     - name: Build APK
       run: |
         cd android
@@ -41,3 +47,4 @@ jobs:
       with:
         name: android-apk
         path: android/app/build/outputs/apk/release/app-release.apk
+        retention-days: 7
