@@ -1,7 +1,5 @@
-import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 
 export default function InsuranceRequestScreen() {
   const [name, setName] = useState('');
@@ -17,25 +15,53 @@ export default function InsuranceRequestScreen() {
 
     Alert.alert(
       'درخواست ثبت شد ✅',
-      'ممنون از شما! درخواست‌تون با موفقیت ثبت شد.\nرضا حیدری هریس در اسرع وقت با شما تماس می‌گیره.',
-      [{ text: 'باشه', onPress: () => {} }]
+      'ممنون از شما! درخواست شما با موفقیت ثبت شد.\nرضا حیدری هریس در اسرع وقت با شما تماس خواهد گرفت.',
+      [{ text: 'باشه' }]
     );
+
+    // اختیاری: پاک کردن فرم بعد از ارسال
+    setName('');
+    setPhone('');
+    setType('');
+    setDetails('');
   };
 
   return (
-    <LinearGradient colors={['#F5F7FA', '#FFFFFF']} style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>درخواست بیمه</Text>
+    <View style={styles.container}>
+      {/* هدر سرمه‌ای ساده و شیک بدون گرادیانت خارجی */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>درخواست بیمه</Text>
+      </View>
 
-        <View style={styles.form}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.formCard}>
           <Text style={styles.label}>نام و نام خانوادگی</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} placeholder="علی احمدی" />
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={setName}
+            placeholder="علی احمدی"
+            placeholderTextColor="#999"
+          />
 
           <Text style={styles.label}>شماره تماس</Text>
-          <TextInput style={styles.input} value={phone} onChangeText={setPhone} keyboardType="phone-pad" placeholder="09123456789" />
+          <TextInput
+            style={styles.input}
+            value={phone}
+            onChangeText={setPhone}
+            keyboardType="phone-pad"
+            placeholder="09123456789"
+            placeholderTextColor="#999"
+          />
 
           <Text style={styles.label}>نوع بیمه مورد نظر</Text>
-          <TextInput style={styles.input} value={type} onChangeText={setType} placeholder="مثال: شخص ثالث، بدنه، عمر، آتش‌سوزی" />
+          <TextInput
+            style={styles.input}
+            value={type}
+            onChangeText={setType}
+            placeholder="مثال: شخص ثالث، بدنه، عمر، آتش‌سوزی"
+            placeholderTextColor="#999"
+          />
 
           <Text style={styles.label}>توضیحات بیشتر (اختیاری)</Text>
           <TextInput
@@ -44,47 +70,84 @@ export default function InsuranceRequestScreen() {
             onChangeText={setDetails}
             multiline
             placeholder="جزئیات خودرو، ملک یا نیاز خود را توضیح دهید..."
+            placeholderTextColor="#999"
           />
 
-          <Link href="#" onPress={submitRequest} style={styles.submitButton}>
+          <View style={styles.submitButton} onTouchEnd={submitRequest}>
             <Text style={styles.submitText}>ارسال درخواست</Text>
-          </Link>
+          </View>
         </View>
       </ScrollView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  content: { padding: 20, paddingTop: 60 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#002B5B', textAlign: 'center', marginBottom: 30 },
-  form: {
-    backgroundColor: '#FFF',
-    borderRadius: 20,
-    padding: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    elevation: 10,
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F7FA',
   },
-  label: { fontSize: 16, fontWeight: '600', color: '#002B5B', marginTop: 16, marginBottom: 8 },
+  header: {
+    backgroundColor: '#002B5B',
+    paddingTop: 60,
+    paddingBottom: 30,
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  content: {
+    padding: 20,
+    paddingTop: 0,
+  },
+  formCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 28,
+    padding: 28,
+    marginTop: -30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.18,
+    shadowRadius: 24,
+    elevation: 20,
+  },
+  label: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#002B5B',
+    marginTop: 20,
+    marginBottom: 8,
+  },
   input: {
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: '#DDD',
-    borderRadius: 14,
-    padding: 16,
+    borderRadius: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 16,
     fontSize: 16,
     backgroundColor: '#FAFBFD',
   },
-  textArea: { height: 120, textAlignVertical: 'top' },
+  textArea: {
+    height: 120,
+    textAlignVertical: 'top',
+  },
   submitButton: {
     backgroundColor: '#E4002B',
-    paddingVertical: 18,
-    borderRadius: 16,
-    marginTop: 30,
+    paddingVertical: 20,
+    borderRadius: 20,
+    marginTop: 36,
     alignItems: 'center',
+    shadowColor: '#E4002B',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 16,
+    elevation: 12,
   },
-  submitText: { color: '#FFF', fontSize: 18, fontWeight: 'bold' },
+  submitText: {
+    color: '#FFFFFF',
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
 });

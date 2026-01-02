@@ -1,271 +1,163 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import React from 'react';
-import { Dimensions, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 export default function HomeScreen() {
   return (
-    <ImageBackground
-      source={require('../../assets/images/splash-screen-bg.jpg')}
-      style={styles.background}
-      resizeMode="cover"
-    >
-      <View style={styles.overlay} />
-
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.logoContainer}>
-            <ImageBackground
-              source={require('../../assets/images/logo-saman.png')}
-              style={styles.logoBackground}
-              imageStyle={styles.logoImage}
-              resizeMode="contain"
-            >
-              <Text style={styles.logoText}>بیمه سامان</Text>
-            </ImageBackground>
-          </View>
-
-          <Text style={styles.agentName}>رضا حیدری هریس</Text>
-          <Text style={styles.agentTitle}>نماینده و کارمند رسمی بیمه سامان</Text>
-
-          <View style={styles.badge}>
-            <FontAwesome name="shield" size={22} color="#E4002B" />
-            <Text style={styles.badgeText}>مشاوره رایگان • خدمات ۲۴ ساعته • تخفیف ویژه</Text>
-          </View>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* هدر لوکس با پس‌زمینه سرمه‌ای و لوگو */}
+      <View style={styles.header}>
+        <Image source={require('../../assets/images/logo-saman.png')} style={styles.logo} resizeMode="contain" />
+        <Text style={styles.title}>بیمه سامان</Text>
+        <Text style={styles.agentName}>رضا حیدری هریس</Text>
+        <Text style={styles.agentRole}>نماینده رسمی و کارمند شرکت بیمه سامان</Text>
+        <View style={styles.trustBadge}>
+          <FontAwesome name="shield" size={20} color="#E4002B" />
+          <Text style={styles.trustText}>مشاوره رایگان • پاسخگویی ۲۴ ساعته • تخفیف ویژه</Text>
         </View>
+      </View>
 
-        <View style={styles.mainCard}>
-          <View style={styles.profileContainer}>
-            <View style={styles.profileBorder}>
-              <View style={styles.profileImage}>
-                {/* اگر عکس رضا رو گذاشتی، این بخش رو با Image جایگزین کن */}
-                {/* مثال: */}
-                {/* <Image source={require('../../assets/images/reza-photo.jpg')} style={{width: '100%', height: '100%', borderRadius: 62}} resizeMode="cover" /> */}
-              </View>
-            </View>
-          </View>
-
-          <Text style={styles.welcomeText}>با افتخار در خدمت شما هستم</Text>
-
-          <Text style={styles.description}>
-            درخواست صدور یا تمدید انواع بیمه‌نامه با بهترین شرایط، بالاترین تخفیف‌ها و مشاوره تخصصی{'\n\n'}
-            • بیمه شخص ثالث و بدنه خودرو{'\n'}
-            • بیمه عمر و سرمایه‌گذاری{'\n'}
-            • بیمه آتش‌سوزی منزل و مغازه{'\n'}
-            • بیمه مسئولیت{'\n'}
-            • بیمه درمان تکمیلی{'\n'}
-            • بیمه باربری و حمل و نقل
-          </Text>
-
-          <Link href="/request" style={styles.primaryButton}>
-            <FontAwesome name="file-text-o" size={26} color="#FFFFFF" />
-            <Text style={styles.primaryButtonText}>درخواست بیمه جدید</Text>
-          </Link>
-
-          <Link href="/contact" style={styles.secondaryButton}>
-            <FontAwesome name="phone" size={26} color="#002B5B" />
-            <Text style={styles.secondaryButtonText}>تماس مستقیم با رضا</Text>
-          </Link>
-
-          <View style={styles.featuresRow}>
-            <View style={styles.featureItem}>
-              <FontAwesome name="bolt" size={30} color="#E4002B" />
-              <Text style={styles.featureText}>پاسخگویی سریع</Text>
-            </View>
-            <View style={styles.featureItem}>
-              <FontAwesome name="percent" size={30} color="#E4002B" />
-              <Text style={styles.featureText}>تخفیف‌های ویژه</Text>
-            </View>
-            <View style={styles.featureItem}>
-              <FontAwesome name="headphones" size={30} color="#E4002B" />
-              <Text style={styles.featureText}>پشتیبانی ۲۴/۷</Text>
-            </View>
-          </View>
+      {/* کارت پروفایل رضا با طراحی خفن */}
+      <View style={styles.profileCard}>
+        <View style={styles.avatarBorder}>
+          <View style={styles.avatar} />
         </View>
+        <Text style={styles.welcome}>با افتخار در خدمت شما هستم</Text>
+        <Text style={styles.bio}>
+          بیش از ۱۰ سال تجربه در صنعت بیمه{'\n'}
+          تخصص در ارائه بهترین پوشش بیمه‌ای با شرایط ویژه
+        </Text>
+      </View>
 
-        <Text style={styles.footerText}>© ۱۴۰۴ شرکت بیمه سامان - رضا حیدری هریس</Text>
-      </ScrollView>
-    </ImageBackground>
+      {/* دکمه‌های اصلی */}
+      <View style={styles.actions}>
+        <Link href="/request" style={styles.actionButtonPrimary}>
+          <FontAwesome name="file-text-o" size={26} color="#FFF" />
+          <Text style={styles.actionText}>درخواست بیمه جدید</Text>
+        </Link>
+
+        <Link href="/contact" style={styles.actionButtonSecondary}>
+          <FontAwesome name="phone" size={26} color="#002B5B" />
+          <Text style={styles.actionTextSecondary}>تماس مستقیم با من</Text>
+        </Link>
+      </View>
+
+      {/* انواع بیمه با کارت‌های زیبا */}
+      <Text style={styles.sectionTitle}>انواع بیمه قابل ارائه</Text>
+      <View style={styles.insuranceGrid}>
+        {['شخص ثالث', 'بدنه خودرو', 'عمر و سرمایه', 'آتش‌سوزی', 'مسئولیت', 'درمان تکمیلی'].map((item, index) => (
+          <View key={index} style={styles.insuranceItem}>
+            <MaterialIcons name="security" size={32} color="#E4002B" />
+            <Text style={styles.insuranceText}>{item}</Text>
+          </View>
+        ))}
+      </View>
+
+      {/* مزایای همکاری */}
+      <Text style={styles.sectionTitle}>چرا با من بیمه کنید؟</Text>
+      <View style={styles.benefits}>
+        <View style={styles.benefitItem}>
+          <FontAwesome name="percent" size={28} color="#E4002B" />
+          <Text style={styles.benefitText}>بالاترین تخفیف قانونی</Text>
+        </View>
+        <View style={styles.benefitItem}>
+          <FontAwesome name="clock-o" size={28} color="#E4002B" />
+          <Text style={styles.benefitText}>صدور فوری بیمه‌نامه</Text>
+        </View>
+        <View style={styles.benefitItem}>
+          <FontAwesome name="headphones" size={28} color="#E4002B" />
+          <Text style={styles.benefitText}>پشتیبانی ۲۴ ساعته</Text>
+        </View>
+        <View style={styles.benefitItem}>
+          <FontAwesome name="car" size={28} color="#E4002B" />
+          <Text style={styles.benefitText}>خسارت سریع و آسان</Text>
+        </View>
+      </View>
+
+      <Text style={styles.footer}>© ۱۴۰۴ شرکت بیمه سامان - رضا حیدری هریس</Text>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 43, 91, 0.70)',
-  },
-  container: {
-    flexGrow: 1,
-    paddingBottom: 50,
-  },
+  container: { flex: 1, backgroundColor: '#F8FAFC' },
   header: {
+    backgroundColor: '#002B5B',
     alignItems: 'center',
-    paddingTop: height * 0.09,
-    paddingBottom: 40,
+    paddingTop: height * 0.08,
+    paddingBottom: 50,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
-  logoContainer: {
-    marginBottom: 20,
-  },
-  logoBackground: {
-    width: 160,
-    height: 110,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoImage: {
-    opacity: 0.95,
-  },
-  logoText: {
-    fontSize: 36,
-    fontWeight: '900',
-    color: '#FFFFFF',
-    textShadowColor: 'rgba(0, 0, 0, 0.6)',
-    textShadowOffset: { width: 2, height: 3 },
-    textShadowRadius: 8,
-  },
-  agentName: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginTop: 16,
-    letterSpacing: 0.5,
-  },
-  agentTitle: {
-    fontSize: 19,
-    color: '#E4002B',
-    fontWeight: '700',
-    marginTop: 8,
-  },
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.18)',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 40,
-    marginTop: 24,
-    backdropFilter: 'blur(10px)',
-  },
-  badgeText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    marginLeft: 12,
-    fontWeight: '600',
-  },
-  mainCard: {
-    backgroundColor: '#FFFFFF',
+  logo: { width: 160, height: 110, marginBottom: 10 },
+  title: { fontSize: 36, fontWeight: '900', color: '#FFF' },
+  agentName: { fontSize: 30, fontWeight: 'bold', color: '#FFF', marginTop: 10 },
+  agentRole: { fontSize: 18, color: '#E4002B', fontWeight: '600', marginTop: 6 },
+  trustBadge: { flexDirection: 'row', backgroundColor: 'rgba(255,255,255,0.15)', paddingHorizontal: 24, paddingVertical: 12, borderRadius: 40, marginTop: 24 },
+  trustText: { color: '#FFF', fontSize: 16, marginLeft: 10, fontWeight: '600' },
+  profileCard: {
+    backgroundColor: '#FFF',
     marginHorizontal: 20,
-    marginTop: -40,
+    marginTop: -60,
     borderRadius: 36,
-    paddingVertical: 44,
-    paddingHorizontal: 32,
+    paddingVertical: 40,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 0.35,
+    shadowOpacity: 0.3,
     shadowRadius: 40,
     elevation: 30,
   },
-  profileContainer: {
-    marginBottom: 24,
-  },
-  profileBorder: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    backgroundColor: '#E4002B',
-    padding: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 124,
-    height: 124,
-    borderRadius: 62,
-    backgroundColor: '#CCCCCC',
-  },
-  welcomeText: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#002B5B',
-    marginBottom: 20,
-  },
-  description: {
-    fontSize: 17,
-    color: '#333333',
-    textAlign: 'center',
-    lineHeight: 28,
-    marginBottom: 40,
-    paddingHorizontal: 8,
-  },
-  primaryButton: {
+  avatarBorder: { width: 140, height: 140, borderRadius: 70, backgroundColor: '#E4002B', padding: 8, marginBottom: 20 },
+  avatar: { width: 124, height: 124, borderRadius: 62, backgroundColor: '#CCC' },
+  welcome: { fontSize: 26, fontWeight: 'bold', color: '#002B5B' },
+  bio: { fontSize: 16, color: '#555', textAlign: 'center', marginTop: 12, lineHeight: 24, paddingHorizontal: 20 },
+  actions: { paddingHorizontal: 20, marginTop: 30 },
+  actionButtonPrimary: {
     flexDirection: 'row',
     backgroundColor: '#002B5B',
-    width: '100%',
     paddingVertical: 22,
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 18,
     shadowColor: '#002B5B',
-    shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.5,
     shadowRadius: 20,
     elevation: 15,
   },
-  primaryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 16,
-  },
-  secondaryButton: {
+  actionButtonSecondary: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFF',
     borderWidth: 3,
     borderColor: '#002B5B',
-    width: '100%',
     paddingVertical: 20,
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 36,
   },
-  secondaryButtonText: {
-    color: '#002B5B',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 16,
-  },
-  featuresRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    paddingHorizontal: 20,
-  },
-  featureItem: {
+  actionText: { color: '#FFF', fontSize: 20, fontWeight: 'bold', marginLeft: 16 },
+  actionTextSecondary: { color: '#002B5B', fontSize: 20, fontWeight: 'bold', marginLeft: 16 },
+  sectionTitle: { fontSize: 24, fontWeight: 'bold', color: '#002B5B', textAlign: 'center', marginTop: 40, marginBottom: 20 },
+  insuranceGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', paddingHorizontal: 20 },
+  insuranceItem: {
+    backgroundColor: '#FFF',
+    width: '45%',
+    margin: 8,
+    padding: 20,
+    borderRadius: 20,
     alignItems: 'center',
-    minWidth: 80,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 15,
+    elevation: 10,
   },
-  featureText: {
-    fontSize: 15,
-    color: '#002B5B',
-    marginTop: 10,
-    fontWeight: '700',
-  },
-  footerText: {
-    textAlign: 'center',
-    color: '#FFFFFF',
-    fontSize: 14,
-    marginTop: 40,
-    opacity: 0.9,
-    fontWeight: '500',
-  },
+  insuranceText: { marginTop: 12, fontSize: 15, fontWeight: '600', color: '#002B5B', textAlign: 'center' },
+  benefits: { paddingHorizontal: 30, marginVertical: 20 },
+  benefitItem: { flexDirection: 'row', alignItems: 'center', marginVertical: 14 },
+  benefitText: { fontSize: 17, color: '#333', marginLeft: 16, fontWeight: '600' },
+  footer: { textAlign: 'center', color: '#888', marginVertical: 40, fontSize: 14 },
 });
